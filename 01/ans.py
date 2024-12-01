@@ -11,6 +11,7 @@ def return_lists(data):
         list1.append(nums[0])
         list2.append(nums[1]) 
     return list1, list2
+
 def solve(data):
     """Solution method"""
     # data is a list of 2 numbers per line
@@ -22,8 +23,17 @@ def solve(data):
     sum = 0
     for i in range(len(list1)):
         sum += abs(list1[i] - list2[i])
+        
+    # part 2 solving
+    # turn list2 into a hashmap of counts
+    list2_counts = {}
+    for num in list2:
+        list2_counts[num] = list2_counts.get(num, 0) + 1
+    simliarity_score = 0
+    for num in list1:
+        simliarity_score += list2_counts.get(num, 0) * num
     # return the sum
-    return sum
+    return sum, simliarity_score
 
 def main():
     # Read input
