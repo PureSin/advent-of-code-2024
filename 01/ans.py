@@ -1,7 +1,7 @@
-def read_input(file_path):
-    """Read input from file and return data"""
-    with open(file_path, 'r') as file:
-        return file.read().splitlines()
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent))
+from helpers import read_input
 
 def return_lists(data):
     list1 = []
@@ -37,8 +37,7 @@ def solve(data):
 
 def main():
     # Read input
-    input_data = read_input('01/input.txt')
-    
+    input_data = read_input(str(Path(__file__).parent / 'input.txt')) 
     # Solve the problem
     answer = solve(input_data)
     
