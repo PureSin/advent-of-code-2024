@@ -1,6 +1,7 @@
 fn main() {
     let lines = read_input();
-    println!("{}", solution(lines))
+    let (a, b) = solution(lines);
+    println!("{0}, {1}", a, b);
 }
 
 fn parse_to_lists(lines: &Vec<String>) -> (Vec<i32>, Vec<i32>) {
@@ -18,15 +19,25 @@ fn parse_to_lists(lines: &Vec<String>) -> (Vec<i32>, Vec<i32>) {
     (list1, list2)
 }
 
-fn solution(lines: Vec<String>) -> i32 {
+fn solution(lines: Vec<String>) -> (i32, i32) {
     let (mut list1, mut list2) = parse_to_lists(&lines);
     list1.sort();
     list2.sort();
-    let mut sum = 0;
-    for i in 0..list1.len() {
-        sum += (list1[i] - list2[i]).abs();
+    let part1_score = list1.iter()
+        .zip(list2.iter())
+        .map(|(a, b)| (a - b).abs())
+        .sum();
+
+    // solve part 2 by turing list2 into a map 
+    let mut list2_counts = std::collections::HashMap::new();
+    for &num in list2.iter() {
+        *list2_counts.entry(num).or_insert(0) += 1;
     }
-    sum
+    let mut score = 0;
+    for &num in list1.iter() {
+        score += list2_counts.get(&num).unwrap_or(&0) * num;
+    }
+    return (part1_score, score)
 }
 
 fn read_input() -> Vec<String> {
