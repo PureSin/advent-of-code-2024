@@ -1,5 +1,9 @@
+#[path = "../util.rs"]
+mod util;
+use util::read_input;
+
 fn main() {
-    let lines = read_input();
+    let lines = read_input("input.txt");
     let (a, b) = solution(lines);
     println!("{0}, {1}", a, b);
 }
@@ -38,15 +42,4 @@ fn solution(lines: Vec<String>) -> (i32, i32) {
         score += list2_counts.get(&num).unwrap_or(&0) * num;
     }
     return (part1_score, score)
-}
-
-fn read_input() -> Vec<String> {
-    // Read input filr
-    let input = std::fs::read_to_string("input.txt")
-        .expect("Failed to read input file");
-    
-    // Split into lines
-    input.lines()
-        .map(String::from)
-        .collect()
 }
