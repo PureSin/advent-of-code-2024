@@ -25,6 +25,7 @@ def parse_input(data):
 
 def is_correct(update, rules):
     print("checking update: ", update)
+    correct = True
     for rule in rules:
         left, right = rule
         if left not in update or right not in update:
@@ -32,8 +33,13 @@ def is_correct(update, rules):
         left_idx = update.index(left)
         right_idx = update.index(right)
         if left_idx >= right_idx:
-            return False
-    return True
+            correct = False
+            # flip the 2 values
+            # Swap the values at left_idx and right_idx
+            update[left_idx], update[right_idx] = update[right_idx], update[left_idx]
+            # try again with this
+            _, update = is_correct(update, rules)
+    return correct, update 
 
 def solve(data):
     """Solution method"""
@@ -41,10 +47,21 @@ def solve(data):
     # parse the updates 
     rules, updates = parse_input(data)
     # filter the correct updates
-    correct_updates = list(filter(lambda update: is_correct(update, rules), updates))
+    correct_updates = []
+    fixed_updates = []
+    for update in updates:
+        correct, fixed = is_correct(update, rules)
+        if correct:
+            correct_updates.append(update)
+        else:
+            fixed_updates.append(fixed)
     # sum up the middle numbers
     p1_result = sum(update[len(update)//2] for update in correct_updates)
-    return p1_result
+    print("Fixed updates:")
+    for update in fixed_updates:
+        print(update)
+    p2_result = sum(update[len(update)//2] for update in fixed_updates)
+    return p1_result, p2_result
 
 def main():
     # Read input
