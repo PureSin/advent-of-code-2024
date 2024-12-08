@@ -1,5 +1,5 @@
 import unittest
-from ans import is_x_mas
+from ans import *
 
 class TestIsXMas(unittest.TestCase):
     def test_valid_original_pattern(self):
@@ -79,5 +79,15 @@ class TestIsXMas(unittest.TestCase):
         ]
         self.assertTrue(is_x_mas(pattern))
 
+    def test_solve(self):
+        # Arrange
+        input_data = read_input(str(Path(__file__).parent / 'input.txt'))
+        
+        # Act
+        result = solve(input_data)
+        
+        # Assert
+        assert result == (2554, 1916), f"Expected (2554, 1916) but got {result}"
+        
 if __name__ == '__main__':
     unittest.main() 
