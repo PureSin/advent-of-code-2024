@@ -61,7 +61,7 @@ def solve(data):
 
 def main():
     # Read input
-    input_data = read_input(str(Path(__file__).parent / 'input.txt'))
+    input_data = read_input(str(Path(__file__).parent / 'sample.txt'))
     
     # Solve the problem
     answer = solve(input_data)
