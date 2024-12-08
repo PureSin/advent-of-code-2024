@@ -52,10 +52,10 @@ def solve(data):
                 cur_dir = "^"
             else: #"^"
                 cur_dir = ">"
-            a, b = move(x_pos, y_pos, cur_dir)
-            print("Turning at line {} x {}, new dir {}, new pos: {}x{}".format(x_pos, y_pos, cur_dir, a, b))
-            x_pos = a
-            y_pos = b
+            next_x_pos, next_y_pos = move(x_pos, y_pos, cur_dir)
+            print("Turning at line {} x {}, new dir {}, new pos: {}x{}".format(x_pos, y_pos, cur_dir, next_x_pos, next_y_pos))
+            x_pos = next_x_pos 
+            y_pos = next_y_pos
         else:
             y_pos = next_y_pos
             x_pos = next_x_pos
@@ -69,7 +69,7 @@ def solve(data):
 
 def main():
     # Read input
-    input_data = read_input(str(Path(__file__).parent / 'input.txt'))
+    input_data = read_input(str(Path(__file__).parent / 'sample.txt'))
     
     # Solve the problem
     answer = solve(input_data)
