@@ -31,6 +31,19 @@ def is_valid_antinode(x, y, grid):
         return 1
     return 0
 
+def is_valid_2(combo, grid):
+    x1, y1 = combo[0]
+    x2, y2 = combo[1]
+    dx = x2 - x1
+    dy = y2 - y1
+    # its a line now, generate all of valid ones in a line
+    a1x = x1 + 2*dx
+    a1y = y1 + 2*dy
+    a2x = x1 - dx
+    a2y = y1 - dy
+    print("Antinodes: {} and {}".format((a1x, a1y), (a2x, a2y)))
+    return is_valid_antinode(a1x, a1y, grid) + is_valid_antinode(a2x, a2y, grid) 
+
 def is_valid(combo, grid):
     x1, y1 = combo[0]
     x2, y2 = combo[1]
@@ -73,7 +86,7 @@ def solve(data):
 
 def main():
     # Read input
-    input_data = read_input(str(Path(__file__).parent / 'input.txt'))
+    input_data = read_input(str(Path(__file__).parent / 'sample.txt'))
     
     # Solve the problem
     answer = solve(input_data)
