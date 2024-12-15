@@ -5,7 +5,7 @@ class TestAns(unittest.TestCase):
     def test_solve(self):
         """Test the solve function"""
         test_data = read_input(str(Path(__file__).parent / 'sample.txt'))
-        expected_result = 1928
+        expected_result = (1928, 2858)
         self.assertEqual(solve(test_data), expected_result)
         
     def test_checksum(self):
@@ -20,5 +20,9 @@ class TestAns(unittest.TestCase):
         res = get_compact_disk_map([0, '.', '.', 1, 1, 1, '.', '.', '.', '.', 2, 2, 2, 2, 2]) 
         self.assertEqual(res, [0, 2, 2, 1, 1, 1, 2, 2, 2, '.', '.', '.', '.', '.', '.'])
 
+    def test_compact_disk_map2(self):
+        res = get_compact_disk_map_2([0, '.', '.', 1, 1, 1, '.', '.', '.', '.', 2, 2, 2, 2, 2]) 
+        self.assertEqual(res, [0, 2, 2, 1, 1, 1, 2, 2, 2, '.', '.', '.', '.', '.', '.'])
+        
 if __name__ == "__main__":
     unittest.main()

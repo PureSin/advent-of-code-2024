@@ -41,6 +41,41 @@ def get_compact_disk_map(disk_map):
         print("Done iterating") 
     return disk_map
 
+def get_size_left(disk_map, index):
+    e = disk_map[index]
+    size = 1
+    while True:
+        if disk_map[index - size] != e:
+            break
+        size += 1
+    return size
+
+def get_size_right(disk_map, index):
+    e = disk_map[index]
+    size = 1
+    while True:
+        if disk_map[index + size] != e:
+            break
+        size += 1
+    return size
+
+def get_compact_disk_map_2(disk_map):
+    try:
+        from_index_gen = get_from_index(disk_map)
+        to_index_gen = get_insert_index(disk_map)
+        from_index = next(from_index_gen)
+        to_index = next(to_index_gen)
+        while from_index > to_index:
+            # swap
+            print("Swapping {} {} with {} {}".format(from_index,disk_map[from_index],to_index, disk_map[to_index]))
+            disk_map[from_index], disk_map[to_index] = disk_map[to_index], disk_map[from_index]
+            to_index = next(to_index_gen)
+            from_index = next(from_index_gen)
+    except StopIteration:
+        print("Done iterating") 
+    return disk_map
+
+   
 def compute_checksum(compacted_disk_map):
     checksum = 0
     for i, v in enumerate(compacted_disk_map):
@@ -60,11 +95,14 @@ def solve(data):
     compacted_disk_map = get_compact_disk_map(disk_map)
     # compute checksum 
     checksum = compute_checksum(compacted_disk_map)
-    return checksum
+    
+    compacted_disk_map_2 = get_compact_disk_map_2(disk_map)
+    checksum2 = compute_checksum(compacted_disk_map_2)
+    return checksum, checksum2
 
 def main():
     # Read input
-    input_data = read_input(str(Path(__file__).parent / 'input.txt'))
+    input_data = read_input(str(Path(__file__).parent / 'sample.txt'))
     
     # Solve the problem
     answer = solve(input_data)
